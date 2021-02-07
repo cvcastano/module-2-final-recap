@@ -12,7 +12,7 @@ function fetchStoredData() {
     fetchApiData();
   } else {
     palettes = storedPalettes;
-    renderData();
+    renderPalettes();
   }
 }
 
@@ -31,46 +31,32 @@ function storeData() {
   localStorage.setItem('palettes', stringPalettes);
 }
 
-function renderData() {
+function renderPalettes() {
+  let htmlCode = '';
+
   for (const palette of palettes) {
-    const paletteElement = document.createElement('li');
-    palettesContainer.appendChild(paletteElement);
-    paletteElement.classList.add('palette');
-
-    const title = document.createElement('h2');
-    paletteElement.appendChild(title);
-    title.classList.add('palette__title');
-    title.appendChild(document.createTextNode(`${palette.name}`));
-
-    const colorsContainer = document.createElement('div');
-    paletteElement.appendChild(colorsContainer);
-    colorsContainer.classList.add('palette__colors');
+    htmlCode += '<li class="palette">';
+    htmlCode += `<h2 class="palette__title">${palette.name}</h2>`;
+    htmlCode += '<div class="palette__colors">';
 
     for (const paletteColor of palette.colors) {
-      const color = document.createElement('div');
-      colorsContainer.appendChild(color);
-      color.classList.add('palette__color');
-      color.setAttribute('style', 'background-color');
-      color.style.backgroundColor = `#${paletteColor}`;
+      htmlCode += `<div class="palette__color" style="background-color: #${paletteColor}"></div>`;
     }
+    htmlCode += '</div>';
+    htmlCode += '</li>';
   }
+  palettesContainer.innerHTML = htmlCode;
 }
 
 function handleFilter() {
   console.log('listening...');
+  renderPalettes();
 }
-
-function filterInput() {
-  const chosenPalettes = inputElement.value.filter(palette.name.include(inputElement.value));
-console.log(chosenPalettes);
-}
-
 inputElement.addEventListener('keyup', handleFilter);
 
 function handleForm(ev) {
   ev.preventDefault();
   console.log('handleForm');
-  filterInput();
 }
 formElement.addEventListener('submit', handleForm);
 
