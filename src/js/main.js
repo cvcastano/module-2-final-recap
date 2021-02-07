@@ -30,9 +30,14 @@ function storeData() {
   const stringPalettes = JSON.stringify(palettes);
   localStorage.setItem('palettes', stringPalettes);
 }
+// const chosenPalettes = inputElement.value.filter(palettes.name.include(inputElement.value));
+
+
 
 function renderData() {
+
   for (const palette of palettes) {
+
     const paletteElement = document.createElement('li');
     palettesContainer.appendChild(paletteElement);
     paletteElement.classList.add('palette');
@@ -54,15 +59,11 @@ function renderData() {
       color.style.backgroundColor = `#${paletteColor}`;
     }
   }
+
 }
 
 function handleFilter() {
-  console.log('listening...');
-}
-
-function filterInput() {
-  const chosenPalettes = inputElement.value.filter(palette.name.include(inputElement.value));
-console.log(chosenPalettes);
+  console.log('nah, no me sale');
 }
 
 inputElement.addEventListener('keyup', handleFilter);
@@ -70,9 +71,13 @@ inputElement.addEventListener('keyup', handleFilter);
 function handleForm(ev) {
   ev.preventDefault();
   console.log('handleForm');
-  filterInput();
 }
 formElement.addEventListener('submit', handleForm);
+
+
+
+
+
 
 
 fetchStoredData();
